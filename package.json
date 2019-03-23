@@ -1,0 +1,30 @@
+{
+  "name": "selang",
+  "description": "selang, simple Ethereum programming language oriented to be easily compiled to WebAssembly, WIP",
+  "keywords": [
+    "ethereum",
+    "smartcontract",
+    "programming",
+    "compiler"
+  ],
+  "version": "0.0.1alpha",
+  "author": "Angel 'Java' Lopez <webmaster@ajlopez.com> (http://www.ajlopez.com)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ajlopez/selang.git"
+  },
+  "main": "./lib/selang.js",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "scripts": {
+    "test": "simpleunit ./test -r"
+  },
+  "dependencies": {
+    "geast": "0.0.4",
+    "gelex": "0.0.4"
+  },
+  "devDependencies": {
+    "simpleunit": "0.0.8"
+  }
+}
