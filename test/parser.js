@@ -55,56 +55,41 @@ exports['parse string'] = function (test) {
     match(test, result, { ntype: 'constant', value: 'foo' });
 };
 
-exports['parse add integers'] = function (test) {
-    const result = parser.parse('expression', '42 + 0');
-    
-    match(test, result, { 
-        ntype: 'binary', 
-        operator: '+',
-        left: {
-            ntype: 'constant',
-            value: 42
-        },
-        right: {
-            ntype: 'constant',
-            value: 0
-        }
-    });
+exports['parse add'] = function (test) {
+    parseBinary(test, '42 + 0', [ 42, '+', 0] );
+    parseBinary(test, '1 + 2', [ 1, '+', 2 ]);
+    parseBinary(test, '42 + foo', [ 42, '+', 'foo' ]);
+    parseBinary(test, 'foo + 42', [ 'foo', '+', 42 ]);
+    parseBinary(test, 'foo + bar', [ 'foo', '+', 'bar' ]);
 };
 
-exports['parse add integer and variable'] = function (test) {
-    const result = parser.parse('expression', '42 + foo');
+function parseBinary(test, text, expected) {
+    const node = parser.parse('expression', text);
+    const obj = toObj(expected);
     
-    match(test, result, { 
-        ntype: 'binary', 
-        operator: '+',
-        left: {
-            ntype: 'constant',
-            value: 42
-        },
-        right: {
-            ntype: 'name',
-            name: 'foo'
-        }
-    });
-};
-
-exports['parse add variable and integer'] = function (test) {
-    const result = parser.parse('expression', 'foo + 42');
+    match(test, node, obj);
     
-    match(test, result, { 
-        ntype: 'binary', 
-        operator: '+',
-        left: {
-            ntype: 'name',
-            name: 'foo'
-        },
-        right: {
+    function toObj(obj) {
+        if (Array.isArray(obj))
+            return {
+                ntype: 'binary',
+                operator: obj[1],
+                left: toObj(obj[0]),
+                right: toObj(obj[2])
+            };
+            
+        if (typeof obj === 'string')
+            return {
+                ntype: 'name',
+                name: obj
+            };
+            
+        return {
             ntype: 'constant',
-            value: 42
+            value: obj
         }
-    });
-};
+    }
+}
 
 function match(test, node, obj) {
     test.ok(node);
