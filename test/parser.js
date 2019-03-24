@@ -55,13 +55,36 @@ exports['parse string'] = function (test) {
     match(test, result, { ntype: 'constant', value: 'foo' });
 };
 
+exports['parse add integers'] = function (test) {
+    const result = parser.parse('expression', '42 + 0');
+    
+    match(test, result, { 
+        ntype: 'binary', 
+        operator: '+',
+        left: {
+            ntype: 'constant',
+            value: 42
+        },
+        right: {
+            ntype: 'constant',
+            value: 0
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
     for (var n in obj) {
         test.ok(node[n]);
         test.equal(typeof node[n], 'function');
-        test.strictEqual(node[n](), obj[n]);
+        const value = node[n]();
+        const expected = obj[n];
+        
+        if (typeof value === 'object')
+            match(test, value, expected);
+        else
+            test.strictEqual(value, expected);
     }
 }
 
