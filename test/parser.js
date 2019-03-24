@@ -94,6 +94,13 @@ exports['parse binary operations in parentheses'] = function (test) {
     parseBinary(test, '(foo / 42)', [ 'foo', '/', 42 ]);
 };
 
+exports['left associativity in arithmetic operators'] = function (test) {
+    parseBinary(test, '1 + 2 + 3', [ [ 1, '+', 2 ], '+', 3 ] );
+    parseBinary(test, '1 - 2 - 3', [ [ 1, '-', 2 ], '-', 3 ] );
+    parseBinary(test, '1 * 2 * 3', [ [ 1, '*', 2 ], '*', 3 ] );
+    parseBinary(test, '1 / 2 / 3', [ [ 1, '/', 2 ], '/', 3 ] );
+};
+
 function parseBinary(test, text, expected) {
     const node = parser.parse('expression', text);
     const obj = toObj(expected);
