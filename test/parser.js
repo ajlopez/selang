@@ -7,6 +7,12 @@ exports['parse lowercase name'] = function (test) {
     match(test, result, { ntype: 'name', name: 'foo' });
 };
 
+exports['parse mixed case name'] = function (test) {
+    const result = parser.parse('name', 'Foo');
+    
+    match(test, result, { ntype: 'name', name: 'Foo' });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
