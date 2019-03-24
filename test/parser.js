@@ -7,6 +7,18 @@ exports['parse lowercase name'] = function (test) {
     match(test, result, { ntype: 'name', name: 'foo' });
 };
 
+exports['parse name with digits'] = function (test) {
+    const result = parser.parse('name', 'foo42');
+    
+    match(test, result, { ntype: 'name', name: 'foo42' });
+};
+
+exports['parse name with underscore and digits'] = function (test) {
+    const result = parser.parse('name', 'foo_42');
+    
+    match(test, result, { ntype: 'name', name: 'foo_42' });
+};
+
 exports['parse mixed case name'] = function (test) {
     const result = parser.parse('name', 'Foo');
     
@@ -17,6 +29,18 @@ exports['parse uppercase name'] = function (test) {
     const result = parser.parse('name', 'BAR');
     
     match(test, result, { ntype: 'name', name: 'BAR' });
+};
+
+exports['parse name with underscore'] = function (test) {
+    const result = parser.parse('name', 'foo_bar');
+    
+    match(test, result, { ntype: 'name', name: 'foo_bar' });
+};
+
+exports['parse name with initial underscore'] = function (test) {
+    const result = parser.parse('name', '_foo');
+    
+    match(test, result, { ntype: 'name', name: '_foo' });
 };
 
 function match(test, node, obj) {
