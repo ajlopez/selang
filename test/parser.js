@@ -79,6 +79,14 @@ exports['parse multiply'] = function (test) {
     parseBinary(test, 'foo * bar', [ 'foo', '*', 'bar' ]);
 };
 
+exports['parse divide'] = function (test) {
+    parseBinary(test, '42 / 0', [ 42, '/', 0] );
+    parseBinary(test, '1 / 2', [ 1, '/', 2 ]);
+    parseBinary(test, '42 / foo', [ 42, '/', 'foo' ]);
+    parseBinary(test, 'foo / 42', [ 'foo', '/', 42 ]);
+    parseBinary(test, 'foo / bar', [ 'foo', '/', 'bar' ]);
+};
+
 function parseBinary(test, text, expected) {
     const node = parser.parse('expression', text);
     const obj = toObj(expected);
