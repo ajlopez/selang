@@ -21,8 +21,9 @@
     "test": "simpleunit ./test -r"
   },
   "dependencies": {
-    "geast": "0.0.4",
-    "gelex": "0.0.4"
+    "geast": "0.0.5",
+    "gelex": "0.0.4",
+    "gepars": "0.0.2"
   },
   "devDependencies": {
     "simpleunit": "0.0.8"
