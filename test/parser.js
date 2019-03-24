@@ -72,6 +72,40 @@ exports['parse add integers'] = function (test) {
     });
 };
 
+exports['parse add integer and variable'] = function (test) {
+    const result = parser.parse('expression', '42 + foo');
+    
+    match(test, result, { 
+        ntype: 'binary', 
+        operator: '+',
+        left: {
+            ntype: 'constant',
+            value: 42
+        },
+        right: {
+            ntype: 'name',
+            name: 'foo'
+        }
+    });
+};
+
+exports['parse add variable and integer'] = function (test) {
+    const result = parser.parse('expression', 'foo + 42');
+    
+    match(test, result, { 
+        ntype: 'binary', 
+        operator: '+',
+        left: {
+            ntype: 'name',
+            name: 'foo'
+        },
+        right: {
+            ntype: 'constant',
+            value: 42
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
