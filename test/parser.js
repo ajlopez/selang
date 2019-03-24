@@ -43,13 +43,19 @@ exports['parse name with initial underscore'] = function (test) {
     match(test, result, { ntype: 'name', name: '_foo' });
 };
 
+exports['parse integer'] = function (test) {
+    const result = parser.parse('integer', '42');
+    
+    match(test, result, { ntype: 'constant', value: 42 });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
     for (var n in obj) {
         test.ok(node[n]);
         test.equal(typeof node[n], 'function');
-        test.equal(node[n](), obj[n]);
+        test.strictEqual(node[n](), obj[n]);
     }
 }
 
