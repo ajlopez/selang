@@ -49,6 +49,12 @@ exports['parse integer'] = function (test) {
     match(test, result, { ntype: 'constant', value: 42 });
 };
 
+exports['parse string'] = function (test) {
+    const result = parser.parse('string', '"foo"');
+    
+    match(test, result, { ntype: 'constant', value: 'foo' });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
