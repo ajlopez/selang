@@ -21,6 +21,16 @@ exports['parse int variable declaration'] = function (test) {
     });
 };
 
+exports['parse bool variable declaration'] = function (test) {
+    const result = parser.parse('command', 'bool flag;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'flag',
+        type: 'bool'
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
