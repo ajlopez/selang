@@ -55,6 +55,22 @@ exports['parse string'] = function (test) {
     match(test, result, { ntype: 'constant', value: 'foo' });
 };
 
+exports['parse indexed term'] = function (test) {
+    const result = parser.parse('term', 'a[10]');
+    
+    match(test, result, {
+        ntype: 'indexed',
+        target: {
+            ntype: 'name',
+            name: 'a'
+        },
+        index: {
+            ntype: 'constant',
+            value: 10
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
