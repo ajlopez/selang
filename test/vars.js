@@ -1,13 +1,23 @@
 
 const parser = require('../lib/parser');
 
-exports['parse variable declaration'] = function (test) {
+exports['parse uint variable declaration'] = function (test) {
     const result = parser.parse('command', 'uint counter;');
     
     match(test, result, {
         ntype: 'variable',
         name: 'counter',
         type: 'uint'
+    });
+};
+
+exports['parse int variable declaration'] = function (test) {
+    const result = parser.parse('command', 'int counter;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'counter',
+        type: 'int'
     });
 };
 
