@@ -31,6 +31,21 @@ exports['parse empty public void method'] = function (test) {
     });
 };
 
+exports['parse empty explicit private void method'] = function (test) {
+    const result = parser.parse('method', 'private void foo() {}');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'private',
+        type: 'void',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: []
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
