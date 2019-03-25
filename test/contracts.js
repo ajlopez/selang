@@ -14,6 +14,25 @@ exports['parse empty contract'] = function (test) {
     });
 };
 
+exports['parse contract with variable declaration'] = function (test) {
+    const result = parser.parse('contract', 'contract Counter { uint counter; }');
+    
+    match(test, result, {
+        ntype: 'contract',
+        name: 'Counter',
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'variable',
+                    name: 'counter',
+                    type: 'uint'
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
