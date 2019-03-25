@@ -17,6 +17,30 @@ exports['parse simple assignment'] = function (test) {
     });
 };
 
+exports['parse assignment'] = function (test) {
+    const result = parser.parse('command', 'counter = counter + 1;');
+    
+    match(test, result, {
+        ntype: 'assignment',
+        lefthand: {
+            ntype: 'name',
+            name: 'counter'
+        },
+        value: {
+            ntype: 'binary',
+            operator: '+',
+            left: {
+                ntype: 'name',
+                name: 'counter'
+            },
+            right: {
+                ntype: 'constant',
+                value: 1
+            }
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
