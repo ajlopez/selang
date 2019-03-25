@@ -17,13 +17,44 @@ exports['parse while'] = function (test) {
     });
 };
 
+exports['parse while with composite command'] = function (test) {
+    const result = parser.parse('command', 'while (b) { c; d; }');
+    
+    match(test, result, {
+        ntype: 'loop',
+        condition: {
+            ntype: 'name',
+            name: 'b'
+        },
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'name',
+                    name: 'c'
+                },
+                {
+                    ntype: 'name',
+                    name: 'd'
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
     for (var n in obj) {
         test.ok(node[n]);
-        test.equal(typeof node[n], 'function');
-        const value = node[n]();
+        
+        let value;
+        
+        if (typeof node[n] === 'function')
+            value = node[n]();
+        else
+            value = node[n];
+        
         const expected = obj[n];
         
         if (value != null && typeof value === 'object')
