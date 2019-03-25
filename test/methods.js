@@ -61,8 +61,8 @@ exports['parse empty explicit private uint method'] = function (test) {
     });
 };
 
-exports['parse empty implicit private uint method'] = function (test) {
-    const result = parser.parse('method', 'uint foo() {}');
+exports['parse implicit private uint method'] = function (test) {
+    const result = parser.parse('method', 'uint foo() { return 42; }');
     
     match(test, result, {
         ntype: 'method',
@@ -71,7 +71,15 @@ exports['parse empty implicit private uint method'] = function (test) {
         arguments: [],
         body: {
             ntype: 'sequence',
-            nodes: []
+            nodes: [
+                {
+                    ntype: 'return',
+                    expression: {
+                        ntype: 'constant',
+                        value: 42
+                    }
+                }
+            ]
         }
     });
 };
