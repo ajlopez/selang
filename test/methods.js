@@ -46,6 +46,36 @@ exports['parse empty explicit private void method'] = function (test) {
     });
 };
 
+exports['parse empty explicit private uint method'] = function (test) {
+    const result = parser.parse('method', 'private uint foo() {}');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'private',
+        type: 'uint',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: []
+        }
+    });
+};
+
+exports['parse empty implicit private uint method'] = function (test) {
+    const result = parser.parse('method', 'uint foo() {}');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'private',
+        type: 'uint',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: []
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
