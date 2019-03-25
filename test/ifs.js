@@ -14,7 +14,28 @@ exports['parse if with then'] = function (test) {
             ntype: 'name',
             name: 'c'
         },
-        else: undefined
+        else: null
+    });
+};
+
+exports['parse if with then and else'] = function (test) {
+    const result = parser.parse('command', 'if (b) c; else d;');
+    console.dir(result)
+    
+    match(test, result, {
+        ntype: 'conditional',
+        condition: {
+            ntype: 'name',
+            name: 'b'
+        },
+        then: {
+            ntype: 'name',
+            name: 'c'
+        },
+        else: {
+            ntype: 'name',
+            name: 'd'
+        }
     });
 };
 
@@ -27,7 +48,7 @@ function match(test, node, obj) {
         const value = node[n]();
         const expected = obj[n];
         
-        if (typeof value === 'object')
+        if (value != null && typeof value === 'object')
             match(test, value, expected);
         else
             test.strictEqual(value, expected);
