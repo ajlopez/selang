@@ -1,12 +1,27 @@
 
 const parser = require('../lib/parser');
 
-exports['parse empty public void method'] = function (test) {
+exports['parse empty private void method'] = function (test) {
     const result = parser.parse('method', 'void foo() {}');
     
     match(test, result, {
         ntype: 'method',
         visibility: 'private',
+        type: 'void',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: []
+        }
+    });
+};
+
+exports['parse empty public void method'] = function (test) {
+    const result = parser.parse('method', 'public void foo() {}');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'public',
         type: 'void',
         arguments: [],
         body: {
