@@ -31,7 +31,38 @@ exports['parse bool variable declaration'] = function (test) {
     });
 };
 
+exports['parse uint dynamic array variable declaration'] = function (test) {
+    const result = parser.parse('command', 'uint[] counter;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'counter',
+        type: {
+            ntype: 'array',
+            length: null,
+            type: 'uint'
+        }
+    });
+};
+
+exports['parse uint fixed size array variable declaration'] = function (test) {
+    const result = parser.parse('command', 'uint[10] counter;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'counter',
+        type: {
+            ntype: 'array',
+            length: 10,
+            type: 'uint'
+        }
+    });
+};
+
 function match(test, node, obj) {
+    if (node === obj)
+        return;
+    
     test.ok(node);
     
     for (var n in obj) {
@@ -40,7 +71,7 @@ function match(test, node, obj) {
         const value = node[n]();
         const expected = obj[n];
         
-        if (typeof value === 'object')
+        if (value != null && typeof value === 'object')
             match(test, value, expected);
         else
             test.strictEqual(value, expected);

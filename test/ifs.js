@@ -20,7 +20,6 @@ exports['parse if with then'] = function (test) {
 
 exports['parse if with then and else'] = function (test) {
     const result = parser.parse('command', 'if (b) c; else d;');
-    console.dir(result)
     
     match(test, result, {
         ntype: 'conditional',
