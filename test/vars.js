@@ -59,6 +59,16 @@ exports['parse uint fixed size array variable declaration'] = function (test) {
     });
 };
 
+exports['parse address variable declaration'] = function (test) {
+    const result = parser.parse('command', 'address counter;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'counter',
+        type: 'address'
+    });
+};
+
 function match(test, node, obj) {
     if (node === obj)
         return;
