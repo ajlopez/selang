@@ -17,16 +17,10 @@ TBD
 
 ## To Do
 
-- While command
 - For command
-- If command
 - Call expression
-- Indexed expression
 - New expression
-- Declare simple variable
-- Declare array variable
-- Declare contract method
-- Declare contract
+- Code generation
 
 ## Contribution
 
