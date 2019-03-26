@@ -6,9 +6,9 @@ const code = fs.readFileSync(process.argv[2]).toString();
 
 console.log(code);
 
-const result = parser.parse('contract', code);
+const result = parser.parse('program', code);
 
-console.log(JSON.stringify(toObject(result), null, 4));
+console.log(JSON.stringify(toObject(result), null, 2));
 
 function arrayToObject(array) {
     const result = [];
