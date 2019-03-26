@@ -84,6 +84,41 @@ exports['parse implicit private uint method'] = function (test) {
     });
 };
 
+exports['parse increment method'] = function (test) {
+    const result = parser.parse('method', 'public void increment() { counter = counter + 1; }');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'public',
+        type: 'void',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'assignment',
+                    lefthand: {
+                        ntype: 'name',
+                        name: 'counter'
+                    },
+                    value: {
+                        ntype: 'binary',
+                        operator: '+',
+                        left: {
+                            ntype: 'name',
+                            name: 'counter'
+                        },
+                        right: {
+                            ntype: 'constant',
+                            value: 1
+                        }
+                    }
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     

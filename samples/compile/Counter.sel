@@ -1,0 +1,9 @@
+
+contract Counter {
+    uint counter;
+    
+    public void increment() {
+        counter = counter + 1;
+    }
+}
+
