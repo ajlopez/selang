@@ -19,6 +19,32 @@ exports['parse program with empty contract'] = function (test) {
     });
 };
 
+exports['parse program with two contracts'] = function (test) {
+    const result = parser.parse('program', 'contract Empty1 {} contract Empty2 {}');
+    
+    match(test, result, {
+        ntype: 'sequence',
+        nodes: [
+            {
+                ntype: 'contract',
+                name: 'Empty1',
+                body: {
+                    ntype: 'sequence',
+                    nodes: []
+                }
+            },
+            {
+                ntype: 'contract',
+                name: 'Empty2',
+                body: {
+                    ntype: 'sequence',
+                    nodes: []
+                }
+            }
+        ]
+    });
+};
+
 exports['parse program with contract with variable declaration'] = function (test) {
     const result = parser.parse('program', 'contract Counter { uint counter; }');
     
