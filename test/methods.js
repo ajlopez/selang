@@ -160,6 +160,52 @@ exports['parse add method with one argument'] = function (test) {
     });
 };
 
+exports['parse add method with two arguments'] = function (test) {
+    const result = parser.parse('method', 'public void add(uint value, uint value2) { counter = counter + value; }');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'public',
+        type: 'void',
+        arguments: [
+            {
+                ntype: 'argument',
+                name: 'value',
+                type: 'uint'
+            },
+            {
+                ntype: 'argument',
+                name: 'value2',
+                type: 'uint'
+            }
+        ],
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'assignment',
+                    lefthand: {
+                        ntype: 'name',
+                        name: 'counter'
+                    },
+                    value: {
+                        ntype: 'binary',
+                        operator: '+',
+                        left: {
+                            ntype: 'name',
+                            name: 'counter'
+                        },
+                        right: {
+                            ntype: 'name',
+                            name: 'value'
+                        }
+                    }
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
