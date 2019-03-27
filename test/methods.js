@@ -119,6 +119,47 @@ exports['parse increment method'] = function (test) {
     });
 };
 
+exports['parse add method with one argument'] = function (test) {
+    const result = parser.parse('method', 'public void add(uint value) { counter = counter + value; }');
+    
+    match(test, result, {
+        ntype: 'method',
+        visibility: 'public',
+        type: 'void',
+        arguments: [
+            {
+                ntype: 'argument',
+                name: 'value',
+                type: 'uint'
+            }
+        ],
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'assignment',
+                    lefthand: {
+                        ntype: 'name',
+                        name: 'counter'
+                    },
+                    value: {
+                        ntype: 'binary',
+                        operator: '+',
+                        left: {
+                            ntype: 'name',
+                            name: 'counter'
+                        },
+                        right: {
+                            ntype: 'name',
+                            name: 'value'
+                        }
+                    }
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
