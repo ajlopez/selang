@@ -11,6 +11,20 @@ exports['parse uint variable declaration'] = function (test) {
     });
 };
 
+exports['parse uint variable declaration and initialization'] = function (test) {
+    const result = parser.parse('command', 'uint answer = 42;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'answer',
+        type: 'uint',
+        expression: {
+            ntype: 'constant',
+            value: 42
+        }
+    });
+};
+
 exports['parse int variable declaration'] = function (test) {
     const result = parser.parse('command', 'int counter;');
     
@@ -56,6 +70,16 @@ exports['parse uint fixed size array variable declaration'] = function (test) {
             length: 10,
             type: 'uint'
         }
+    });
+};
+
+exports['parse address variable declaration'] = function (test) {
+    const result = parser.parse('command', 'address counter;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'counter',
+        type: 'address'
     });
 };
 
