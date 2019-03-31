@@ -1,0 +1,17 @@
+
+contract Counter {
+    uint counter;
+        
+    public uint getCounter() {
+        return counter;
+    }
+    
+    public void increment() {
+        counter = counter + 1;
+    }
+        
+    public void add(uint value) {
+        counter = counter + value;
+    }
+}
+
