@@ -48,6 +48,9 @@ function match(test, node, obj) {
         
         const expected = obj[n];
         
+        if (Array.isArray(expected))
+            test.equal(value.length, expected.length);
+        
         if (value != null && typeof value === 'object')
             match(test, value, expected);
         else
