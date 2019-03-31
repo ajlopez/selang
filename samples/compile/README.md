@@ -10,7 +10,7 @@ Compile program
 node compile Counter.sel
 ```
 
-Deploy, invoke and call `Counter.sel` againts `http://localhost:8545`:
+Deploy, invoke and call `Counter.sel` against `http://localhost:8545`:
 ```
 node deploy
 ```
