@@ -3,7 +3,7 @@ const selang = require('../..');
 const rskapi = require('rskapi');
 const fs = require('fs');
 
-const code = fs.readFileSync(process.argv[2]).toString();
+const code = fs.readFileSync('Counter.sel').toString();
 
 console.log(code);
 
@@ -12,7 +12,7 @@ const result = selang.compile(code);
 console.log();
 console.log(result);
 
-const host = rskapi.host('http://localhost:4444');
+const host = rskapi.host('http://localhost:8545');
 
 (async function() {
     const accounts = await host.getAccounts();
