@@ -5,12 +5,12 @@ exports['parse simple assignment'] = function (test) {
     const result = parser.parse('command', 'answer = 42;');
     
     match(test, result, {
-        ntype: 'assignment',
+        ntype: 'assign',
         lefthand: {
             ntype: 'name',
             name: 'answer'
         },
-        value: {
+        expression: {
             ntype: 'constant',
             value: 42
         }
@@ -21,12 +21,12 @@ exports['parse assignment'] = function (test) {
     const result = parser.parse('command', 'counter = counter + 1;');
     
     match(test, result, {
-        ntype: 'assignment',
+        ntype: 'assign',
         lefthand: {
             ntype: 'name',
             name: 'counter'
         },
-        value: {
+        expression: {
             ntype: 'binary',
             operator: '+',
             left: {

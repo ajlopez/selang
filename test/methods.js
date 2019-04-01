@@ -96,12 +96,12 @@ exports['parse increment method'] = function (test) {
             ntype: 'sequence',
             nodes: [
                 {
-                    ntype: 'assignment',
+                    ntype: 'assign',
                     lefthand: {
                         ntype: 'name',
                         name: 'counter'
                     },
-                    value: {
+                    expression: {
                         ntype: 'binary',
                         operator: '+',
                         left: {
@@ -137,12 +137,12 @@ exports['parse add method with one argument'] = function (test) {
             ntype: 'sequence',
             nodes: [
                 {
-                    ntype: 'assignment',
+                    ntype: 'assign',
                     lefthand: {
                         ntype: 'name',
                         name: 'counter'
                     },
-                    value: {
+                    expression: {
                         ntype: 'binary',
                         operator: '+',
                         left: {
@@ -183,12 +183,12 @@ exports['parse add method with two arguments'] = function (test) {
             ntype: 'sequence',
             nodes: [
                 {
-                    ntype: 'assignment',
+                    ntype: 'assign',
                     lefthand: {
                         ntype: 'name',
                         name: 'counter'
                     },
-                    value: {
+                    expression: {
                         ntype: 'binary',
                         operator: '+',
                         left: {
