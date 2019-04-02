@@ -90,6 +90,45 @@ exports['parse if command with else'] = function (test) {
     });
 };
 
+exports['parse while command'] = function (test) {
+    const result = parser.parse('command', 'while (k < 10) k = k + 1;');
+
+    match(test, result, {
+        ntype: 'loop',
+        condition: {
+            ntype: 'binary',
+            operator: '<',
+            left: {
+                ntype: 'name',
+                name: 'k'
+            },
+            right: {
+                ntype: 'constant',
+                value: 10
+            }
+        },
+        body: {
+            ntype: 'assign',
+            lefthand: {
+                ntype: 'name',
+                name: 'k'
+            },
+            expression: {
+                ntype: 'binary',
+                operator: '+',
+                left: {
+                    ntype: 'name',
+                    name: 'k'
+                },
+                right: {
+                    ntype: 'constant',
+                    value: 1
+                }
+            }
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
