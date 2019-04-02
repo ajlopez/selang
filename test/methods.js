@@ -206,6 +206,28 @@ exports['parse add method with two arguments'] = function (test) {
     });
 };
 
+exports['parse method with local variable'] = function (test) {
+    const result = parser.parse('method', 'public void foo() { uint k; }');
+    
+    match(test, result, {
+        ntype: 'method',
+        name: 'foo',
+        visibility: 'public',
+        type: 'void',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'variable',
+                    name: 'k',
+                    expression: null
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
@@ -220,6 +242,9 @@ function match(test, node, obj) {
             value = node[n];
         
         const expected = obj[n];
+        
+        if (expected === value)
+            return;
         
         if (value != null && typeof value === 'object')
             match(test, value, expected);
