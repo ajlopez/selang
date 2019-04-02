@@ -228,6 +228,31 @@ exports['parse method with local variable'] = function (test) {
     });
 };
 
+exports['parse method with initialized local variable'] = function (test) {
+    const result = parser.parse('method', 'public void foo() { uint k = 1; }');
+    
+    match(test, result, {
+        ntype: 'method',
+        name: 'foo',
+        visibility: 'public',
+        type: 'void',
+        arguments: [],
+        body: {
+            ntype: 'sequence',
+            nodes: [
+                {
+                    ntype: 'variable',
+                    name: 'k',
+                    expression: {
+                        ntype: 'constant',
+                        value: 42
+                    }
+                }
+            ]
+        }
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
