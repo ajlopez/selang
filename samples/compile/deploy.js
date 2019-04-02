@@ -63,7 +63,7 @@ const host = rskapi.host('http://localhost:8545');
     
     console.log('counter', parseInt(counter2));
     
-    console.log('add 40...');
+    console.log('add 41...');
     
     const tx4 = {
         from: accounts[0],
