@@ -71,6 +71,19 @@ exports['parse indexed term'] = function (test) {
     });
 };
 
+exports['parse property term'] = function (test) {
+    const result = parser.parse('term', 'foo.bar');
+    
+    match(test, result, {
+        ntype: 'property',
+        expression: {
+            ntype: 'name',
+            name: 'foo'
+        },
+        name: 'bar'
+    });
+};
+
 function match(test, node, obj) {
     test.ok(node);
     
