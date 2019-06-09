@@ -93,6 +93,17 @@ exports['parse address variable declaration'] = function (test) {
     });
 };
 
+exports['parse struct/contract variable declaration'] = function (test) {
+    const result = parser.parse('command', 'Vote counter;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'counter',
+        type: 'Vote'
+    });
+};
+
+
 function match(test, node, obj) {
     if (node === obj)
         return;
