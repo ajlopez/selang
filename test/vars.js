@@ -103,6 +103,15 @@ exports['parse struct/contract variable declaration'] = function (test) {
     });
 };
 
+exports['parse bytes variable declaration'] = function (test) {
+    const result = parser.parse('command', 'bytes data;');
+    
+    match(test, result, {
+        ntype: 'variable',
+        name: 'data',
+        type: 'bytes'
+    });
+};
 
 function match(test, node, obj) {
     if (node === obj)
