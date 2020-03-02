@@ -29,7 +29,7 @@ TBD
 - [The 6 Most Common Blockchain Programming Languages](https://www.verypossible.com/blog/the-6-most-common-blockchain-programming-languages)
 - [Introducing Substrate Smart Contracts with Ink](https://medium.com/block-journal/introducing-substrate-smart-contracts-with-ink-d486289e2b59)
 - [Compiling Formality to the EVM](https://medium.com/@maiavictor/compiling-formality-to-the-evm-99aec75677dd)
-
+- [Advantages of the new Smart contract programming language](https://medium.com/technicity/advantages-of-the-new-smart-contract-programming-language-76fc1664ceaf)
 
 ## Contribution
 
