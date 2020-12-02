@@ -1,10 +1,11 @@
 
 const parser = require('../lib/parser');
+const geast = require('geast');
 
 exports['parse uint variable declaration'] = function (test) {
     const result = parser.parse('command', 'uint counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: 'uint'
@@ -14,7 +15,7 @@ exports['parse uint variable declaration'] = function (test) {
 exports['parse uint variable declaration and initialization'] = function (test) {
     const result = parser.parse('command', 'uint answer = 42;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'answer',
         type: 'uint',
@@ -28,7 +29,7 @@ exports['parse uint variable declaration and initialization'] = function (test) 
 exports['parse int variable declaration'] = function (test) {
     const result = parser.parse('command', 'int counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: 'int'
@@ -38,7 +39,7 @@ exports['parse int variable declaration'] = function (test) {
 exports['parse bool variable declaration'] = function (test) {
     const result = parser.parse('command', 'bool flag;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'flag',
         type: 'bool'
@@ -48,12 +49,11 @@ exports['parse bool variable declaration'] = function (test) {
 exports['parse uint dynamic array variable declaration'] = function (test) {
     const result = parser.parse('command', 'uint[] counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: {
             ntype: 'array',
-            length: null,
             type: 'uint'
         }
     });
@@ -62,12 +62,15 @@ exports['parse uint dynamic array variable declaration'] = function (test) {
 exports['parse uint fixed size array variable declaration'] = function (test) {
     const result = parser.parse('command', 'uint[10] counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: {
             ntype: 'array',
-            length: 10,
+            length: {
+                ntype: 'constant',
+                value: 10
+            },
             type: 'uint'
         }
     });
@@ -76,7 +79,7 @@ exports['parse uint fixed size array variable declaration'] = function (test) {
 exports['parse address variable declaration'] = function (test) {
     const result = parser.parse('command', 'address counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: 'address'
@@ -86,7 +89,7 @@ exports['parse address variable declaration'] = function (test) {
 exports['parse address variable declaration'] = function (test) {
     const result = parser.parse('command', 'address counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: 'address'
@@ -96,7 +99,7 @@ exports['parse address variable declaration'] = function (test) {
 exports['parse struct/contract variable declaration'] = function (test) {
     const result = parser.parse('command', 'Vote counter;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'counter',
         type: 'Vote'
@@ -106,28 +109,10 @@ exports['parse struct/contract variable declaration'] = function (test) {
 exports['parse bytes variable declaration'] = function (test) {
     const result = parser.parse('command', 'bytes data;');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'variable',
         name: 'data',
         type: 'bytes'
     });
 };
 
-function match(test, node, obj) {
-    if (node === obj)
-        return;
-    
-    test.ok(node);
-    
-    for (var n in obj) {
-        test.ok(node[n]);
-        test.equal(typeof node[n], 'function');
-        const value = node[n]();
-        const expected = obj[n];
-        
-        if (value != null && typeof value === 'object')
-            match(test, value, expected);
-        else
-            test.strictEqual(value, expected);
-    }
-}
