@@ -30,6 +30,9 @@ TBD
 - [Introducing Substrate Smart Contracts with Ink](https://medium.com/block-journal/introducing-substrate-smart-contracts-with-ink-d486289e2b59)
 - [Compiling Formality to the EVM](https://medium.com/@maiavictor/compiling-formality-to-the-evm-99aec75677dd)
 - [Advantages of the new Smart contract programming language](https://medium.com/technicity/advantages-of-the-new-smart-contract-programming-language-76fc1664ceaf)
+- [Fe is an emerging smart contract language for the Ethereum blockchain](https://github.com/ethereum/fe)
+- [ERC20 in Fe Programming Language](https://github.com/ethereum/fe/blob/931d6594f1c1cf704a02d784d0498fa7edb893ed/compiler/tests/fixtures/erc20_token.fe)
+
 
 ## Contribution
 
