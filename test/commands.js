@@ -42,7 +42,7 @@ exports['parse if command'] = function (test) {
 };
 
 exports['parse if command with else'] = function (test) {
-    const result = parser.parse('command', 'if (k > 10) k = k - 1; else k = 0');
+    const result = parser.parse('command', 'if (k > 10) k = k - 1; else k = 0;');
 
     test.deepEqual(geast.toObject(result), {
         ntype: 'conditional',
