@@ -1,10 +1,11 @@
 
 const parser = require('../lib/parser');
+const geast = require('geast');
 
 exports['parse empty contract'] = function (test) {
     const result = parser.parse('contract', 'contract Empty {}');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'contract',
         name: 'Empty',
         body: {
@@ -17,7 +18,7 @@ exports['parse empty contract'] = function (test) {
 exports['parse contract with variable declaration'] = function (test) {
     const result = parser.parse('contract', 'contract Counter { uint counter; }');
     
-    match(test, result, {
+    test.deepEqual(geast.toObject(result), {
         ntype: 'contract',
         name: 'Counter',
         body: {
@@ -32,29 +33,4 @@ exports['parse contract with variable declaration'] = function (test) {
         }
     });
 };
-
-function match(test, node, obj) {
-    test.ok(node);
-    
-    for (let n in obj) {
-        test.ok(node[n]);
-        
-        let value;
-        
-        if (typeof node[n] === 'function')
-            value = node[n]();
-        else
-            value = node[n];
-        
-        const expected = obj[n];
-        
-        if (Array.isArray(expected))
-            test.equal(value.length, expected.length);
-        
-        if (value != null && typeof value === 'object')
-            match(test, value, expected);
-        else
-            test.strictEqual(value, expected);
-    }
-}
 
